@@ -8,10 +8,19 @@ function Mouvement (led2: number) {
             liste_led[led2] = liste_led[led2] - 1
             led.plot(liste_x[led2], liste_y[liste_led[led2]])
             led.unplot(liste_x[led2], liste_y[liste_led[led2]] + 1)
-            liste_led[led2] = liste_direction[led2] + 1
+            liste_direction[led2] = liste_direction[led2] + 1
         }
     } else if (liste_direction[led2] == 2) {
-    	
+        if (liste_led[led2] > 0) {
+            liste_led[led2] = liste_led[led2] - 1
+            led.plot(liste_x[led2], liste_y[liste_led[led2]])
+            led.unplot(liste_x[led2], liste_y[liste_led[led2]] + 1)
+        } else if (liste_led[led2] == 0) {
+            liste_led[led2] = liste_led[led2] + 1
+            led.plot(liste_x[led2], liste_y[liste_led[led2]])
+            led.unplot(liste_x[led2], liste_y[liste_led[led2]] - 1)
+            liste_direction[led2] = liste_direction[led2] - 1
+        }
     }
 }
 let liste_direction: number[] = []
@@ -28,5 +37,10 @@ for (let valeur of liste_x) {
     led.plot(liste_x[valeur], liste_y[valeur])
 }
 basic.forever(function () {
-	
+    Mouvement(0)
+    Mouvement(1)
+    Mouvement(2)
+    Mouvement(3)
+    Mouvement(4)
+    basic.pause(100)
 })
